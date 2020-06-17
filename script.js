@@ -3,34 +3,37 @@
         var questions = [
             {
                 Question: 'What color are apples?',
-                answers: [
-                      { text: 'Red/Green', correct: true},
-                      { text: 'Purple', correct: false},
-                      { text: 'Orange', correct: false},
-                      { text: 'Teal', correct: false}
-                  ]
+                possibleAnswers: [
+                      { text: 'Red/Green'},
+                      { text: 'Purple'},
+                      { text: 'Orange'},
+                      { text: 'Teal'}
+                  ],
+                correctAnswer: 'Red/Green'
+
             },
 
             {
                 Question: 'What color are Bananas?',
-                answers: [
-                      { text: 'Green', correct: false},
-                      { text: 'Brown', correct: false},
-                      { text: 'Yellow', correct: false},
-                      { text: 'Orange', correct: true}
-                  ]
+                possibleAnswers: [
+                      { text: 'Green'},
+                      { text: 'Brown'},
+                      { text: 'Yellow'},
+                      { text: 'Orange'}
+                  ],
+                correctAnswer: 'Yellow'
             },
 
             {
                 Question: 'What color are strawberries?',
-                answers: [
-                      { text: 'Red', correct: true},
-                      { text: 'Purple', correct: false},
-                      { text: 'Orange', correct: false},
-                      { text: 'Yellow', correct: false}
-                  ]
+                possibleAnswers: [
+                      { text: 'Red'},
+                      { text: 'Purple'},
+                      { text: 'Orange'},
+                      { text: 'Yellow'}
+                  ],
+                correctAnswer: 'Red'
             },
-
         ];
 
 // Variable for the user's score during the game
@@ -48,6 +51,11 @@ var button0 = document.querySelector(".button0")
 var button1 = document.querySelector(".button1")
 var button2 = document.querySelector(".button2")
 var button3 = document.querySelector(".button3")
+var endGameInput = document.querySelector(".endGameInput")
+var displayAnswer = document.querySelector(".displayAnswer")
+var finalScoreText = document.querySelector(".finalScoreText")
+var finalScore = ''
+
 // Variable to hold the time remaining
 var secondsLeft = 60;
 // Variable to hold the current question
@@ -66,6 +74,8 @@ window.onload = function(){
     button1.style.display= "none";
     button2.style.display= "none";
     button3.style.display= "none";
+    endGameInput.style.display= "none"
+    
 
     // User clicks the start button and calls the startGame function.
     document.querySelector(".start-button").addEventListener("click", 
@@ -118,10 +128,10 @@ window.onload = function(){
 
         function askQuestion (){
             questionEl.textContent = questions[i].Question
-            button0.textContent = questions[i].answers[0].text
-            button1.textContent = questions[i].answers[1].text
-            button2.textContent = questions[i].answers[2].text
-            button3.textContent = questions[i].answers[3].text
+            button0.textContent = questions[i].possibleAnswers[0].text
+            button1.textContent = questions[i].possibleAnswers[1].text
+            button2.textContent = questions[i].possibleAnswers[2].text
+            button3.textContent = questions[i].possibleAnswers[3].text
             
         }
 
@@ -141,12 +151,15 @@ function assignAnswer (answer) {
 // Checks the users answer to see if it is true, then calls the function to ask the next question
 console.log(i)
 function checkAnswer (answer) {
-    // FIXME: This is not finding the "true" answer
-    if (answer == questions[i].answer){
+    if (answer == questions[i].correctAnswer){
+        displayAnswer.textContent = "You are correct"
+
+        // FIXME:
+        // displayAnswer.show();
+        // setTimeout(function() { (displayAnswer).hide(); }, 5000);
         
         i++
         console.log(i)
-        // FIXME: I'm sure there is a better way to do this...
             if (i === 3){
                 gameOver()
             }
@@ -155,6 +168,7 @@ function checkAnswer (answer) {
             }
     } 
     else {
+        displayAnswer.textContent = "You are WRONG!"
         secondsLeft-10
         
         i++
@@ -177,28 +191,26 @@ function checkAnswer (answer) {
         button1.style.display= "none";
         button2.style.display= "none";
         button3.style.display= "none";
+        displayAnswer.style.display= "none";
 
         instructionsEl.style.display= "block";
         instructionsEl.textContent = "Enter Initials";
 
-        var input = document.createElement("INPUT");
-        input.setAttribute("type", "text");
-        input.setAttribute("value", "Initials");
+        endGameInput.style.display= "block";
 
-        var submit = document.createElement("BUTTON");
-        var text = document.createTextNode("Submit");
-        submit.appendChild(text);
-        
-        // FIXME: Can't get append child to attach to the "display2" element. Don't know why it's displaying twice. 
-        document.body.appendChild(input)
-        document.body.appendChild(submit)
 
-        highScores.push(secondsLeft)
+        finalScore = secondsLeft
+        finalScoreText.textContent = "Your final score is " + finalScore
+        //  
+
+        if (secondsLeft > 0){
+            highScores.push(secondsLeft)
+            secondsLeft = 1
+        }
+        // FIXME: This console.log is logging twice and I have no idea why
         console.log(highScores)
 
-        secondsLeft = 1
-
-
+        
 
         
     }
