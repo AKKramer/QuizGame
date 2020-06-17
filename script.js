@@ -39,7 +39,12 @@
 // Variable for the user's score during the game
 var score = ''
 // Variable for an array displaying the game's high scores
-var highScores = []
+var highScores = [
+    {
+        Initials: '', 
+        Highscore: ''
+    }
+]
 // Variable to hold select the timer element
 var timeEl = document.querySelector(".timer");
 // Variable to hold the question element
@@ -55,6 +60,10 @@ var endGameInput = document.querySelector(".endGameInput")
 var displayAnswer = document.querySelector(".displayAnswer")
 var finalScoreText = document.querySelector(".finalScoreText")
 var finalScore = ''
+var initialsInputForm = document.querySelector(".initialsInput")
+var submitInputForm = document.querySelector(".submit")
+
+
 
 // Variable to hold the time remaining
 var secondsLeft = 60;
@@ -169,7 +178,7 @@ function checkAnswer (answer) {
     } 
     else {
         displayAnswer.textContent = "You are WRONG!"
-        secondsLeft-10
+        secondsLeft -= 10
         
         i++
         console.log(i)
@@ -180,8 +189,7 @@ function checkAnswer (answer) {
                 askQuestion()
             }
     }
-    
-    
+
 
 }  
 
@@ -198,14 +206,14 @@ function checkAnswer (answer) {
 
         endGameInput.style.display= "block";
 
-
+        // FIXME: Final score keeps resetting to zero
         finalScore = secondsLeft
         finalScoreText.textContent = "Your final score is " + finalScore
         //  
 
         if (secondsLeft > 0){
             highScores.push(secondsLeft)
-            secondsLeft = 1
+            
         }
         // FIXME: This console.log is logging twice and I have no idea why
         console.log(highScores)
@@ -215,27 +223,24 @@ function checkAnswer (answer) {
         
     }
 
-    // Try to use .value to reference the text in the button
- 
-// After the user clicks on an answer, it displays whether the answer was correct or not.
-// It then displays the next quesiton. 
 
 
+//------------------ High score function --------------------
+var ScoreslistEl = document.querySelector(".ScoreslistEl") 
 
-// }
+// 
 
+// I have run out of time to complete the rest of the high score function. Here is the sudo-code on what else needs to be done:
 
+// var initialsInput needs to equal the input value that the user types in (Thier initials)
 
-// FUNCTIONS
+// var submit needs to push the initialsInput var onto the initials sections of the Highscores object, and the value stored in the finalScore would also be pushed into the highscores object.  
 
+// Stringify the highscores object and add it to local storage
 
-// EVENT LISTENERS
+//Parse the highscores object
 
-
-
-
-
-
+// var highscore would be put into a for loop. Each interation of the for loop would append-child to var ScoresListEl which is a UL in the highScores.html page. 
 
 
 
@@ -246,7 +251,26 @@ function checkAnswer (answer) {
 
 
 
-// https://www.youtube.com/watch?v=LQGTb112N_c
 
-// https://www.youtube.com/watch?v=riDzcEQbX6k
+// function renderHS() {
+    
+//     todoList.innerHTML = "";
+//     todoCountSpan.textContent = todos.length;
+  
+//     // Render a new li for each todo
+//     for (var i = 0; i < todos.length; i++) {
+//       var todo = todos[i];
+  
+//       var li = document.createElement("li");
+//       li.textContent = todo;
+//       li.setAttribute("data-index", i);
+  
+//       var button = document.createElement("button");
+//       button.textContent = "Complete";
+  
+//       li.appendChild(button);
+//       todoList.appendChild(li);
+//     }
+//   }
+
 
